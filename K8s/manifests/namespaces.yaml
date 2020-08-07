@@ -1,0 +1,15 @@
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: prod
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: devops
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: dev

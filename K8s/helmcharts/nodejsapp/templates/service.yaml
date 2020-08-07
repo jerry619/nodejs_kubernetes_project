@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "postgres.fullname" . }}-service
+  labels:
+    app.kubernetes.io/name: {{ include "nodejsapp.name" . }}
+    app.kubernetes.io/env: {{ .Release.Namespace }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: {{ .Values.containerports.port1.name }}
+      nodePort: {{ .Values.service.nodeport }}
+      protocol: {{ .Values.containerports.port1.protocol }}
+      name: http
+  selector:
+    app.kubernetes.io/name: {{ include "nodejsapp.name" . }}
+    app.kubernetes.io/env: {{ .Release.Namespace }} 

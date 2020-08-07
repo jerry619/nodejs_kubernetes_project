@@ -1,0 +1,47 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    pod: nodejsapp
+spec:
+  containers:
+    - name: docker
+      image: jjjje/docker:19.03
+      command:
+        - cat
+      tty: true
+      privileged: true
+      volumeMounts:
+        - name: dockersock
+          mountPath: /var/run/docker.sock
+    - name: helm
+      image: jjjje/k8s-helm:v2.16.9
+      command:
+        - cat
+      tty: true
+      volumeMounts:
+        - name: init
+          mountPath: /root/nodejs_kubernetes_project/init/config
+        - name: helmpath
+          mountPath: /usr/local/bin/helm
+        - name: helmhome
+          mountPath: /root/.helm
+    - name: pytest
+      image: jjjje/pytest
+      command:
+        - cat
+      tty: true          
+  volumes:
+    - name: dockersock
+      hostPath:
+        path: /var/run/docker.sock
+    - name: init
+      hostPath:
+        path: /root/nodejs_kubernetes_project/init/config
+    - name: helmpath
+      hostPath:
+        path: /usr/local/bin/helm
+    - name: helmhome
+      hostPath:
+        path: /root/.helm

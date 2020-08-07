@@ -1,0 +1,30 @@
+---
+kind: ServiceAccount
+apiVersion: v1
+metadata:
+  name: tiller
+  namespace: prod
+---
+kind: ServiceAccount
+apiVersion: v1
+metadata:
+  name: tiller
+  namespace: dev
+---
+kind: ServiceAccount
+apiVersion: v1
+metadata:
+  name: tiller
+  namespace: devops
+---
+kind: ServiceAccount
+apiVersion: v1
+metadata:
+  name: helm
+  namespace: devops
+---
+kind: ServiceAccount
+apiVersion: v1
+metadata:
+  name: jenkins
+  namespace: devops

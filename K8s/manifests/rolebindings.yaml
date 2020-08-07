@@ -1,0 +1,87 @@
+---
+#RoleBinding for tiller in prod namespace
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: tiller-binding
+  namespace: prod
+subjects:
+- kind: ServiceAccount
+  name: tiller
+  namespace: prod
+roleRef:
+  kind: Role
+  name: tiller-manager
+  apiGroup: rbac.authorization.k8s.io
+---
+#RoleBinding for tiller in dev namespace
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: tiller-binding
+  namespace: dev
+subjects:
+- kind: ServiceAccount
+  name: tiller
+  namespace: dev
+roleRef:
+  kind: Role
+  name: tiller-manager
+  apiGroup: rbac.authorization.k8s.io
+---
+#RoleBinding for tiller in devops namespace
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: tiller-binding
+  namespace: devops
+subjects:
+- kind: ServiceAccount
+  name: tiller
+  namespace: devops
+roleRef:
+  kind: Role
+  name: tiller-manager
+  apiGroup: rbac.authorization.k8s.io
+---
+# We bind the role to the Jenkins service account. The role binding is created in the namespace
+# where the agents are supposed to run.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: jenkins-schedule-agents
+  namespace: devops
+  labels:
+    "app.kubernetes.io/name": 'jenkins'
+    "helm.sh/chart": "jenkins-2.5.0"
+    "app.kubernetes.io/managed-by": "Tiller"
+    "app.kubernetes.io/instance": "jenkins"
+    "app.kubernetes.io/component": "jenkins-master"
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: jenkins-schedule-agents
+subjects:
+- kind: ServiceAccount
+  name: jenkins
+  namespace: devops
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: jenkins-watch-configmaps
+  namespace: devops
+  labels:
+    "app.kubernetes.io/name": 'jenkins'
+    "helm.sh/chart": "jenkins-2.5.0"
+    "app.kubernetes.io/managed-by": "Tiller"
+    "app.kubernetes.io/instance": "jenkins"
+    "app.kubernetes.io/component": "jenkins-master"
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: jenkins-casc-reload
+subjects:
+- kind: ServiceAccount
+  name: jenkins
+  namespace: devops

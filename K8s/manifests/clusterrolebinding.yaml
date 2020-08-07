@@ -1,0 +1,29 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: tillerpv-rolebinding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: tillerpv-role
+subjects:
+  - kind: ServiceAccount
+    name: tiller
+    namespace: dev
+  - kind: ServiceAccount
+    name: tiller
+    namespace: prod
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: helm-clusterrolebinding
+roleRef:
+  kind: ClusterRole
+  apiGroup: rbac.authorization.k8s.io
+  name: helm-clusterrole
+subjects:
+  - kind: ServiceAccount
+    name: helm
+    namespace: devops

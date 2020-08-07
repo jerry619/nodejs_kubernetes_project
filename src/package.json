@@ -1,0 +1,14 @@
+{
+  "name": "nodejs_app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Node.js on Docker",
+  "author": "Jerry John Stephen <jerryjohnstephen@gmail.com>",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.16.1"
+  }
+}

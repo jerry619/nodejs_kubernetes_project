@@ -1,0 +1,78 @@
+# Default values for nodejsapp.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+deployment:
+  maxUnavailable: 0
+  maxSurge: 1
+  revisionHistoryLimit: 10
+  minReadySeconds: 6
+  terminationGracePeriodSeconds: 30
+
+image:
+  repository: postgres
+  tag: 9.6.5
+  pullPolicy: Always
+
+containerports:
+  port1:
+    name: postgresport
+    port: 5432
+    protocol: TCP
+
+secret:
+  db: nodejsapppostdb
+  user: postgres
+  password: Ny8jV2Mpsw4few$32!
+
+volume:
+  name: postgres-volume-mount
+  mountPath: /var/lib/postgresql/data
+  storageClassName: standard
+  accessModes: [ReadWriteOnce]
+  capacity:
+    storage: 2Gi
+  hostPath: "/data/postgres-pvjjk"
+
+imagePullSecrets: []
+#nameOverride: ""
+#fullnameOverride: ""
+
+#podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+
+livenessProbe:
+  initialDelaySeconds: 10
+  periodSeconds: 5
+readinessProbe:
+  initialDelaySeconds: 10
+  periodSeconds: 5
+
+service:
+  type: ClusterIP
+  port: 5432
+
+ingress:
+  enabled: false
+
+resources:
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

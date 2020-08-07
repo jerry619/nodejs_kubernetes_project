@@ -1,0 +1,7 @@
+dependencies:
+- name: postgres
+  version: "9.6.5"
+  repository: "https://raw.githubusercontent.com/jerry619/helmcharts/master"
+  import-values:
+    - child: service 
+      parent: db
