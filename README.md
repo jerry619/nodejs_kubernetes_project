@@ -3,7 +3,7 @@
 ## Requirements:
 * Minikube, DockerHub account, GitHub account. 
 
-### Instructions for setting up the environment applying RBAC and deploying the application
+### Instructions for setting up the environment, applying RBAC and deploying the application
 
 ```bash
 * Starting the minikube with RBAC and Ingress addon.
@@ -123,6 +123,13 @@ NOTE: The application can be reached both via Ingress. In a real scenario Ingres
     ├── config.py
     └── test.py
 ```
+### Namespaces
+* prod
+* devops
+* dev
+
+NOTE: Each Namepsace has it's own tiller and strict RBAC rules.
+
 ### Database
 Application uses PostgreSQL Database.
 
