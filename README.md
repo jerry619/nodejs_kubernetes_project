@@ -25,7 +25,7 @@ NOTE: The application can be reached both via Ingress. In a real scenario Ingres
 ```
 ### Instructions for Setting up CI/CD using Jenkins
 ```bash
-  a) Upload the repo to your GitHub account.
+  a) Upload the repo to your GitHub account. Kindly update your DockerHub account details in the Jenkinsfile under REGISTRY variable.
   b) Jenkins is configured using jenkins helm chart using Jcasc. Login to the Jenkins using the credentials provided by the mail. Go to Manage Jenkins > System Configuration and correct the Jenkins URL (Without this webhook will not work) and add the system-admin -mail address.
   c) Run the below commands in minikube and notedown the outputs (Used to configure the Kubernetes cloud):
     # SECRET=$(kubectl -n devops get sa jenkins -o jsonpath='{.secrets[].name}')
