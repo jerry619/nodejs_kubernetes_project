@@ -7,7 +7,7 @@
 
 ```bash
 * Starting the minikube with RBAC and Ingress addon.
-  # minikube start --vm-driver=none --docker-env NO_PROXY=$NO_PROXY --extra-config=apiserver.Authorization.Mode=RBAC
+  # minikube start --extra-config=apiserver.Authorization.Mode=RBAC
   # minikube addons enable ingress
 * Cloning the repository.
   # git clone https://github.com/jerry619/nodejs_kubernetes_project.git
@@ -128,7 +128,7 @@ NOTE: The application can be reached both via Ingress. In a real scenario Ingres
 * devops
 * dev
 
-NOTE: Each Namepsace has it's own tiller and strict RBAC rules.
+NOTE: Each Namepsace has it's own tiller and strict RBAC rules. You can find out this rules in the K8s/manifests directory. No service account is created with any helm chart for increasing security control.
 
 ### Database
 Application uses PostgreSQL Database.
@@ -137,7 +137,10 @@ Application uses PostgreSQL Database.
 * name - String   
 * data - String
 
+### Test
+For the Hello World application I have written a pytest test case to check whether we are recieving the Hello World and 200 reponse. This test case is also added as one of the stage in develop pipeline. 
+
 ### NOTES
 1) Since production and Development is in the same environment. Strict RBAC is implemented and the RBAC files are available under K8s/manifests. Taken out any creation of RBAC from helm charts, So that we can have strict security in place.
 2) Application and Database is run as deployment. Eventhough I prefer database to run outside of the cluster or atleast as statefulset. But since we are running as pod in minikube and has to use hostpath. I chose deployment.
-3) CI/CD is implemented using Multibranch Pipeline. We even can integrate JaCoCo code coverage, Sonar code quality Anlysis and many other things which is not implemented in this test.
+3) CI/CD is implemented using Multibranch Pipeline. We even can integrate JaCoCo code coverage, Sonar code quality Anlysis and many other things which is not implemented in this test. Images published can be assigned with tag app version from package.json using jq or any other method.
